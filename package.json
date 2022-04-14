@@ -1,0 +1,19 @@
+{
+  "name": "latelier",
+  "version": "1.0.0",
+  "description": "test technique latelier ",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/avinas-42/latelier.git"
+  },
+  "author": "avinas-42",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/avinas-42/latelier/issues"
+  },
+  "homepage": "https://github.com/avinas-42/latelier#readme"
+}
