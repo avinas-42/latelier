@@ -5,9 +5,7 @@ const endpoints = require('./routes/endpoints');
 const app = express();
 const port = 3000;
 
-app.use('/', endpoints);
-
-
+endpoints(app);
 
 app.listen(port, () => {
   console.log(`Example app listening at http://localhost:${port}`);

@@ -4,7 +4,8 @@
   "description": "test technique latelier ",
   "main": "index.js",
   "scripts": {
-    "demon": "nodemon ./server.js localhost 8080",
+    "start": "node index.js",
+    "demon": "nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
