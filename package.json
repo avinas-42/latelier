@@ -4,6 +4,7 @@
   "description": "test technique latelier ",
   "main": "index.js",
   "scripts": {
+    "demon": "nodemon ./server.js localhost 8080",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -15,5 +16,8 @@
   "bugs": {
     "url": "https://github.com/avinas-42/latelier/issues"
   },
-  "homepage": "https://github.com/avinas-42/latelier#readme"
+  "homepage": "https://github.com/avinas-42/latelier#readme",
+  "dependencies": {
+    "express": "^4.17.3"
+  }
 }
