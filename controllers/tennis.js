@@ -2,17 +2,15 @@ const fs = require('fs');
 const utils = require('../private/utils');
 const { dirname } = require('path');
 const appDir = dirname(require.main.filename);
-const path = appDir + "/data/data.json"
+const path = appDir + "/data/req.headToHead.json"
 module.exports = {
 
     readAll(req, res) {
-        data = JSON.parse(req.data);
-        data.players = data.players.sort(utils.sortByRank)
-        res.json(data);
+        req.headToHead.players = req.headToHead.players.sort(utils.sortByRank)
+        res.json(req.headToHead);
     },
     read(req, res) {
-        data = JSON.parse(req.data);
-        player = data.players.find((player) => { return player.id == req.params.id });
+        player = req.headToHead.players.find((player) => { return player.id == req.params.id });
         if (player !== undefined) {
             res.json(player);
         }
@@ -21,11 +19,15 @@ module.exports = {
         }
     },
     stats(req, res) {
-        data = JSON.parse(req.data);
         
-        data.players = data.players.sort(utils.sortByRank)
-        res.json(data);
+        const bestCountry = utils.bestRatioCountry(req.headToHead)
+        const bmiMean = utils.bmiMean(req.headToHead);
+        const medianHeight = utils.medianHeight(req.headToHead);
+        const result = {
+            "bestCountry" : bestCountry,
+            "bmiMean" : bmiMean,
+            "medianHeight" : medianHeight
+        }
+        res.json(result);
     },
-
-    
 };
