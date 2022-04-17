@@ -43,7 +43,7 @@ npm run test
 ```
 ## endpoints table
 
-<img src="/path/to/file" alt="endpoints table" />
+<img src="https://raw.githubusercontent.com/avinas-42/latelier/main/public/endpointsTable.png" alt="endpoints table" />
 
 ## json response exemple
 get player by id
