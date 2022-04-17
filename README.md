@@ -42,7 +42,8 @@ npm run start
 npm run test
 ```
 ## endpoints table
- <iframe src="https://github.com/avinas-42/latelier/blob/918a4010e50bcd7ef63265c0e04b5c9045d7f8cb/public/usage.html" title="endpoints table"></iframe> 
+
+<img src="/path/to/file" alt="endpoints table" />
 
 ## json response exemple
 get player by id
