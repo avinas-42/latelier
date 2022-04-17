@@ -1,15 +1,20 @@
 const fs = require('fs');
 const { dirname } = require('path');
-const { nextTick } = require('process');
-const appDir = dirname(require.main.filename);
-const path = appDir + "/data/headtohead.json";
+const appDir = __dirname;
+const path = appDir + "/../data/";
+const noDataFile = 'no data file'
 
+// compare two player by height
+function sortByHeight(x, y) {
+    return (x.data.height > y.data.height) ? 1 : -1 ;
+}
 
 module.exports = {
+    // compare two player by rank
     sortByRank: function (x, y) {
         return (x.data.rank > y.data.rank) ? 1 : -1 ;
     },
-
+    // return the best country by wining ratio
     bestRatioCountry: function (headToHead) {
         countryHash = headToHead.players.reduce(function (r, a) {
             r[a.country.code] = r[a.country.code] || [];
@@ -33,28 +38,40 @@ module.exports = {
         return result;
     },
 
+    // return BMI mean
     bmiMean: function (headToHead) {
-        var sumBmi = 0
+        var sumBmi = 0;
         headToHead.players.forEach(player => {
             sumBmi += (player.data.weight / 1000) / ((player.data.height / 100) ** 2);
         });
-        var bmiMean = sumBmi / headToHead.players.length
-        return (isNaN(bmiMean)) ? -1 : bmiMean  
+        var bmiMean = sumBmi / headToHead.players.length;
+        return (isNaN(bmiMean)) ? -1 : bmiMean;
     },
 
+    // return median height
     medianHeight: function (headToHead) {
-        
-        return 0
-    },
-
-    loadFile: function (req, res, next) {
-        try {
-            headToHead = fs.readFileSync(path);
-        } catch (error) {
-            res.status(500).send('no headToHead file !');
+        headToHead.players = headToHead.players.sort(sortByHeight)
+        if (headToHead.players.length == 0) {
+            return -1;
         }
-        headToHead = JSON.parse(headToHead);
-        req.headToHead = headToHead
-        next()
+        var medianIndex = Math.floor(headToHead.players.length / 2);
+        if (headToHead.players.length % 2 == 0) {
+            console.log()
+            return (headToHead.players[medianIndex].data.height + headToHead.players[medianIndex + 1].data.height) / 2
+        }
+        return headToHead.players[medianIndex].data.height;
+    },
+    // read and return file content
+    loadFile: function (req, res, next) {
+        var headToHead;
+        
+        try {
+            headToHead = fs.readFileSync(path + process.env.DATAFILENAME);
+            headToHead = JSON.parse(headToHead);
+            req.headToHead = headToHead
+            next()
+        } catch (error) {
+            res.status(500).send();
+        }
     },
 };

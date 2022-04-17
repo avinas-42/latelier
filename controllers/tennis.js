@@ -1,33 +1,50 @@
 const fs = require('fs');
 const utils = require('../private/utils');
-const { dirname } = require('path');
-const appDir = dirname(require.main.filename);
-const path = appDir + "/data/req.headToHead.json"
-module.exports = {
 
+const wrongFormat = "data file wrong format"
+const noPlayer = "no player for this id"
+
+module.exports = {
+    // return all players sorted by rank
     readAll(req, res) {
-        req.headToHead.players = req.headToHead.players.sort(utils.sortByRank)
-        res.json(req.headToHead);
+        try {
+            req.headToHead.players = req.headToHead.players.sort(utils.sortByRank)
+            res.json(req.headToHead.players);
+        } catch (e) {
+            res.status(500).send(wrongFormat);
+        }
     },
+
+    // return player if id exist
     read(req, res) {
-        player = req.headToHead.players.find((player) => { return player.id == req.params.id });
-        if (player !== undefined) {
-            res.json(player);
+        try{
+            player = req.headToHead.players.find((player) => { return player.id == req.params.id });
+            if (player !== undefined) {
+                res.json(player);
+            }
+            else{
+                res.status(404).send(noPlayer);
+            }
+        } catch (e) {
+            res.status(500).send(wrongFormat);
         }
-        else{
-            res.status(404).send('no player for this id');
-        }
-    },
-    stats(req, res) {
         
-        const bestCountry = utils.bestRatioCountry(req.headToHead)
-        const bmiMean = utils.bmiMean(req.headToHead);
-        const medianHeight = utils.medianHeight(req.headToHead);
-        const result = {
-            "bestCountry" : bestCountry,
-            "bmiMean" : bmiMean,
-            "medianHeight" : medianHeight
+    },
+    // return the best country by wining ratio BMI mean and median height
+    stats(req, res) {
+        try{
+            const bestCountry = utils.bestRatioCountry(req.headToHead)
+            const bmiMean = utils.bmiMean(req.headToHead);
+            const medianHeight = utils.medianHeight(req.headToHead);
+            const result = {
+                "bestCountry" : bestCountry,
+                "bmiMean" : bmiMean,
+                "medianHeight" : medianHeight
+            }
+            res.json(result);
+        } catch (e) {
+            res.status(500).send(wrongFormat);
         }
-        res.json(result);
+        
     },
 };

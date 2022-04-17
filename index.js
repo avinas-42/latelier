@@ -5,8 +5,14 @@ const endpoints = require('./routes/endpoints');
 const app = express();
 const port = 3000;
 
+process.env.DATAFILENAME = 'headtohead.json';
+
+module.exports = app
+
+// call routes
 endpoints(app);
 
+//start express server
 app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`);
+  console.log(`app listening at ${port}`);
 });

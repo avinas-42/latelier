@@ -1,0 +1,51 @@
+<style>
+    td {
+        padding: 1% 1%;
+    }
+    th {
+        padding: 1% 1%;
+    }
+    table {
+        table-layout: fixed;
+        width: 100%;   
+    }
+</style>
+<table border="1">
+    <caption>API endpoints</caption>
+    <thead>
+        <tr>
+            <th>methode</th>
+            <th>path</th>
+            <th>parameters</th>
+            <th>response</th>
+            <th>error</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            
+            <td>GET</td>
+            <td>/players</td>
+            <td></td>
+            <td>Array of all players sorted by rank</td>
+            <td>Status Code 500: no data file, Status Code 500: data file wrong format</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/player/:id</td>
+            <td>Number: Player ID Wanted</td>
+            <td>The wanted player</td>
+            <td>Status Code 404: no player for this id,</td>
+        </tr>
+        <tr>
+            <td>GET</td>
+            <td>/stats</td>
+            <td></td>
+            <td>the best country by wining ratio BMI mean and median height</td>
+            <td>Status Code 500: no data file, Status Code 500: data file wrong format</td>
+        </tr>
+        
+
+    </tbody>
+    
+</table>
