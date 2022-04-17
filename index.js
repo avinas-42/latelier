@@ -3,7 +3,7 @@ const express = require('express');
 const endpoints = require('./routes/endpoints');
 
 const app = express();
-const port = process.env.PORT || '80';
+const port = process.env.PORT || 5000
 
 process.env.DATAFILENAME = 'headtohead.json';
 
